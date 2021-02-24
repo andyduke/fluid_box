@@ -1,0 +1,21 @@
+name: fluid_box
+description: Responsive helper for fluid layout. Allows you to control the layout of children based on constraints and grid.
+version: 1.0.0
+author:
+homepage:
+repository:
+issue:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
