@@ -1,0 +1,25 @@
+name: fluid_box_tests
+description: FluidBox tests
+publish_to: none
+version: 1.0.0
+author:
+homepage:
+repository:
+issue:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fluid_box:
+    path: ../package
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  golden_toolkit: ^0.8.0
+
+flutter:

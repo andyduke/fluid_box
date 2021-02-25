@@ -6,11 +6,11 @@ import 'fluid.dart';
 class Fluidable extends ParentDataWidget<FluidParentData> {
   Fluidable({
     Key key,
-    this.flex = 1,
+    this.fluid = 1,
     this.minWidth,
     @required Widget child,
-  })  : assert(flex != null),
-        assert(flex > 0),
+  })  : assert(fluid != null),
+        assert(fluid > 0),
         super(
           key: key,
           child: ConstrainedBox(
@@ -19,7 +19,7 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
           ),
         );
 
-  final int flex;
+  final int fluid;
 
   final double minWidth;
 
@@ -29,8 +29,8 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
     final FluidParentData parentData = renderObject.parentData as FluidParentData;
     bool needsLayout = false;
 
-    if (parentData.flex != flex) {
-      parentData.flex = flex;
+    if (parentData.fluid != fluid) {
+      parentData.fluid = fluid;
       needsLayout = true;
     }
 
@@ -51,16 +51,16 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(IntProperty('flex', flex));
+    properties.add(IntProperty('fluid', fluid));
     properties.add(DoubleProperty('minWidth', minWidth));
   }
 }
 
 class FluidParentData extends ContainerBoxParentData<RenderBox> {
-  int flex;
+  int fluid;
 
   double minWidth;
 
   @override
-  String toString() => '${super.toString()}; flex=$flex; minWidth=$minWidth';
+  String toString() => '${super.toString()}; fluid=$fluid; minWidth=$minWidth';
 }

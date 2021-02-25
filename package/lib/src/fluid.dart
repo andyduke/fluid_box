@@ -160,17 +160,23 @@ class _RenderFluid extends RenderBox
 
     double totalFlex = 0;
     for (var lineIndex in line.indexes) {
-      totalFlex += parentData[lineIndex].flex;
+      totalFlex += parentData[lineIndex].fluid;
     }
-    final double spacePerFlex = max(0.0, availableWidth / totalFlex);
+    final double spacePerFluid = max(0.0, availableWidth / totalFlex);
 
     double restWidth = availableWidth;
     for (var lineIndex in line.indexes) {
-      final double flex = parentData[lineIndex].flex.clamp(1, double.maxFinite);
+      final int fluid = parentData[lineIndex].fluid.clamp(1, 9999);
       final double minWidth = widths[lineIndex];
 
-      flexWidths[lineIndex] = (flex * spacePerFlex).clamp(minWidth, restWidth);
-      restWidth -= flexWidths[lineIndex];
+      // debugPrint('* ($lineIndex) fluid: $fluid, spacePerFluid: $spacePerFluid, minWidth: $minWidth, restWidth: $restWidth');
+
+      double width = (fluid * spacePerFluid);
+      if (width > restWidth) width = restWidth;
+      if (width < minWidth) width = minWidth;
+
+      flexWidths[lineIndex] = width;
+      restWidth -= width;
     }
 
     return flexWidths;
