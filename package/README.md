@@ -1,21 +1,110 @@
 # fluid_box
 
-Responsive helper for fluid layout. Allows you to control the layout of children based on constraints and grid.
+Responsive helper for fluid layout. Allows you to control the layout of children based on minimum width and grid.
 
-## Getting Started
+With the `Fluid` widget, you can build responsive interfaces based on width constraints and proportional fill space. For example, this is useful for creating responsive forms. 
+
+## Explanation
+
+The `Fluid` widget allows you to set the horizontal arrangement of widgets with a proportional division of the available width and the minimum width for each, if the widgets cannot be placed on one line due to lack of space, then the wrapping occurs and the width of the available space is distributed in a new line according to the specified constraint.
+
+Children should always be wrapped in a `Fluidable` widget, in which you can set the fluid factor parameter `fluid` to specify the multiplier for the distribution of the parent's width (the default is 1), and the minimum width `minWidth` that the widget's width should not be less than (the minimum width can be omitted, then it will be determined based on the minimum width of the widget itself).
+
+For Fluid, you can specify the horizontal `spacing` between items on the same line and the vertical `lineSpacing` between the lines.
+
+## Examples
+
+### Two widgets in a proportion of 50%/50%
+
+![](../screenshots/demo1.gif)
+
+In this example, two widgets will be aligned horizontally and take up 50% of the parent's width if the parent's width is equal to or greater than the sum of the minimum child widths (400px). If the parent's width is less than 400px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent. 
 
 ```dart
 Fluid(
   children: [
     Fluidable(
-      flex: 1,
+      fluid: 1,
       minWidth: 200,
-      children: Placeholder(),
+      child: Placeholder(),
     ),
     Fluidable(
-      flex: 2,
+      fluid: 1,
+      minWidth: 200,
+      child: Placeholder(),
+    ),
+  ],
+),
+```
+
+### Two widgets in a proportion of 33%/66%
+
+![](../screenshots/demo2.gif)
+
+In this example, two widgets will be lined up horizontally and the second widget will take up twice as much space as the first if the width of the parent is equal to or greater than the sum of the minimum widths of the children (650px). If the parent's width is less than 650px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent.
+
+```dart
+Fluid(
+  children: [
+    Fluidable(
+      fluid: 1,
+      minWidth: 200,
+      child: Placeholder(),
+    ),
+    Fluidable(
+      fluid: 2,
       minWidth: 450,
-      children: Placeholder(),
+      child: Placeholder(),
+    ),
+  ],
+),
+```
+
+<!-- 
+### Two widgets in a proportion of 33%/66%
+
+In this example, two widgets will be lined up horizontally and the second widget will take up twice as much space as the first if the width of the parent is equal to or greater than the sum of the minimum widths of the children (650px). If the parent's width is less than 650px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent.
+
+```dart
+Fluid(
+  children: [
+    Fluidable(
+      fluid: 1,
+      minWidth: 200,
+      child: Placeholder(),
+    ),
+    Fluidable(
+      fluid: 2,
+      minWidth: 450,
+      child: Placeholder(),
+    ),
+  ],
+),
+``` -->
+
+### Three widgets in a ratio of 25%/60%/15%
+
+![](../screenshots/demo3.gif)
+
+In this example, three widgets will be horizontally aligned and divide the parent's width in the following proportion 25%/60%/15% if the width of the parent is equal to or greater than the sum of the minimum widths of the children (600px). If the width of the parent is less than 600px, for example 520px, then the first and second widgets will divide the width of the parent in a ratio of 30%/70%, and the third widget will wrap to a new line and occupy the entire width of the parent.
+
+```dart
+Fluid(
+  children: [
+    Fluidable(
+      fluid: 25,
+      minWidth: 100,
+      child: Placeholder(),
+    ),
+    Fluidable(
+      fluid: 60,
+      minWidth: 400,
+      child: Placeholder(),
+    ),
+    Fluidable(
+      fluid: 10,
+      minWidth: 100,
+      child: Placeholder(),
     ),
   ],
 ),
