@@ -16,7 +16,7 @@ For Fluid, you can specify the horizontal `spacing` between items on the same li
 
 ![](https://github.com/andyduke/fluid_box/blob/master/screenshots/demo1.gif)
 
-In this example, two widgets will be aligned horizontally and take up 50% of the parent's width if the parent's width is equal to or greater than the sum of the minimum child widths (400px). If the parent's width is less than 400px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent. 
+In this example, two widgets will be aligned horizontally and take up 50% of the parent's width if the parent's width is equal to or greater than the sum of the children minimum widths (400px). If the parent's width is less than 400px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent.
 
 ```dart
 Fluid(
@@ -39,7 +39,7 @@ Fluid(
 
 ![](https://github.com/andyduke/fluid_box/blob/master/screenshots/demo2.gif)
 
-In this example, two widgets will be lined up horizontally and the second widget will take up twice as much space as the first if the width of the parent is equal to or greater than the sum of the minimum widths of the children (650px). If the parent's width is less than 650px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent.
+In this example, two widgets will be lined up horizontally and the second widget will take up twice as much space as the first if the width of the parent is equal to or greater than the sum of the children minimum widths (650px). If the parent's width is less than 650px, then the second widget will be moved to a new line and each of them will occupy the entire width of the parent.
 
 ```dart
 Fluid(
@@ -62,7 +62,7 @@ Fluid(
 
 ![](https://github.com/andyduke/fluid_box/blob/master/screenshots/demo3.gif)
 
-In this example, three widgets will be horizontally aligned and divide the parent's width in the following ratio 25%/60%/15% if the width of the parent is equal to or greater than the sum of the minimum widths of the children (600px). If the width of the parent is less than 600px, for example 520px, then the first and second widgets will divide the width of the parent in a ratio of 30%/70%, and the third widget will wrap to a new line and occupy the entire width of the parent.
+In this example, three widgets will be horizontally aligned and divide the parent's width in the following ratio 25%/60%/15% if the width of the parent is equal to or greater than the sum of the children minimum widths (600px). If the width of the parent is less than 600px, for example 520px, then the first and second widgets will divide the width of the parent in a ratio of 30%/70%, and the third widget will wrap to a new line and occupy the entire width of the parent.
 
 ```dart
 Fluid(
