@@ -10,7 +10,7 @@ class Fluid extends MultiChildRenderObjectWidget {
   ///
   /// Like a normal `Wrap` widget with `direction = Axis.horizontal`,
   /// `Fluid` displays its children in rows, but resizes it to fit
-  /// flex and minWidth.
+  /// `fluid` and `minWidth`.
   ///
   /// It will leave `spacing` horizontal space between each child,
   /// and it will leave `lineSpacing` vertical space between each line.
@@ -150,36 +150,49 @@ class _RenderFluid extends RenderBox
     return defaultComputeDistanceToHighestActualBaseline(baseline);
   }
 
-  List<double> _flexWidths({
+  List<double> _fluidWidths({
     @required _RunLine line,
     @required double availableWidth,
     @required List<FluidParentData> parentData,
     @required List<double> widths,
   }) {
-    final List<double> flexWidths = List.from(widths, growable: false);
+    final List<double> fluidWidths = List.from(widths, growable: false);
 
-    double totalFlex = 0;
+    double totalFluid = 0;
     for (var lineIndex in line.indexes) {
-      totalFlex += parentData[lineIndex].fluid;
+      totalFluid += parentData[lineIndex].fluid;
     }
-    final double spacePerFluid = max(0.0, availableWidth / totalFlex);
+    final double spacePerFluid = max(0.0, availableWidth / totalFluid);
 
+    int minWidthCount = 0;
+    double totalWidth = 0;
     double restWidth = availableWidth;
     for (var lineIndex in line.indexes) {
-      final int fluid = parentData[lineIndex].fluid.clamp(1, 9999);
+      final int fluid = parentData[lineIndex].fluid.clamp(1, totalFluid);
       final double minWidth = widths[lineIndex];
-
-      // debugPrint('* ($lineIndex) fluid: $fluid, spacePerFluid: $spacePerFluid, minWidth: $minWidth, restWidth: $restWidth');
 
       double width = (fluid * spacePerFluid);
       if (width > restWidth) width = restWidth;
-      if (width < minWidth) width = minWidth;
+      if (width < minWidth) {
+        width = minWidth;
+        minWidthCount++;
+      }
 
-      flexWidths[lineIndex] = width;
+      fluidWidths[lineIndex] = width;
       restWidth -= width;
+      totalWidth += width;
     }
 
-    return flexWidths;
+    if (totalWidth > availableWidth) {
+      final double delta = (totalWidth - availableWidth) / (line.indexes.length - minWidthCount);
+      for (var lineIndex in line.indexes) {
+        if (fluidWidths[lineIndex] > widths[lineIndex]) {
+          fluidWidths[lineIndex] -= delta;
+        }
+      }
+    }
+
+    return fluidWidths;
   }
 
   @override
@@ -217,7 +230,7 @@ class _RenderFluid extends RenderBox
       double width = widths[index];
 
       if (x > 0 && (x + width + spacing) > availableWidth) {
-        widths = _flexWidths(
+        widths = _fluidWidths(
           line: line,
           availableWidth: availableWidth,
           parentData: parentData,
@@ -234,7 +247,7 @@ class _RenderFluid extends RenderBox
     }
 
     // Calculating widths for the last line
-    widths = _flexWidths(
+    widths = _fluidWidths(
       line: line,
       availableWidth: availableWidth,
       parentData: parentData,
