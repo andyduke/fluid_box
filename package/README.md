@@ -1,4 +1,4 @@
-# fluid_box
+# Fluid
 
 Responsive helper for fluid layout. Allows you to control the layout of children based on minimum width and grid.
 
