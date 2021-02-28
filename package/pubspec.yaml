@@ -1,10 +1,10 @@
 name: fluid_box
 description: Responsive helper for fluid layout. Allows you to control the layout of children based on constraints and grid.
 version: 1.0.0
-author:
-homepage:
-repository:
-issue:
+author: Andy Chentsov <chentsov@gmail.com>
+homepage: https://github.com/andyduke/fluid_box/tree/master/package
+repository: https://github.com/andyduke/fluid_box
+issue_tracker: https://github.com/andyduke/fluid_box/issues
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
