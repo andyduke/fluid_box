@@ -14,7 +14,7 @@ For Fluid, you can specify the horizontal `spacing` between items on the same li
 
 ## Examples
 
-### Two widgets in a proportion of 50%/50%
+### Two widgets in a ratio of 50%/50%
 
 ![](https://github.com/andyduke/fluid_box/blob/master/screenshots/demo1.gif)
 
@@ -37,7 +37,7 @@ Fluid(
 ),
 ```
 
-### Two widgets in a proportion of 33%/66%
+### Two widgets in a ratio of 33%/66%
 
 ![](https://github.com/andyduke/fluid_box/blob/master/screenshots/demo2.gif)
 
@@ -64,7 +64,7 @@ Fluid(
 
 ![](https://github.com/andyduke/fluid_box/blob/master/screenshots/demo3.gif)
 
-In this example, three widgets will be horizontally aligned and divide the parent's width in the following proportion 25%/60%/15% if the width of the parent is equal to or greater than the sum of the minimum widths of the children (600px). If the width of the parent is less than 600px, for example 520px, then the first and second widgets will divide the width of the parent in a ratio of 30%/70%, and the third widget will wrap to a new line and occupy the entire width of the parent.
+In this example, three widgets will be horizontally aligned and divide the parent's width in the following ratio 25%/60%/15% if the width of the parent is equal to or greater than the sum of the minimum widths of the children (600px). If the width of the parent is less than 600px, for example 520px, then the first and second widgets will divide the width of the parent in a ratio of 30%/70%, and the third widget will wrap to a new line and occupy the entire width of the parent.
 
 ```dart
 Fluid(
