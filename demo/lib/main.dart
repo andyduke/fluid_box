@@ -1,6 +1,6 @@
-import 'package:demo/display_size.dart';
-import 'package:demo/screen_size_test.dart';
-import 'package:fluid_box/fluid_box.dart';
+import 'package:fluid_kit_demo/display_size.dart';
+import 'package:fluid_kit_demo/screen_size_test.dart';
+import 'package:fluid_kit/fluid_kit.dart';
 import 'package:flutter/material.dart';
 
 void main() {

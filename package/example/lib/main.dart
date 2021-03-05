@@ -1,4 +1,4 @@
-import 'package:fluid_box/fluid_box.dart';
+import 'package:fluid_kit/fluid_kit.dart';
 import 'package:flutter/material.dart';
 
 void main() {

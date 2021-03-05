@@ -1,5 +1,5 @@
-name: demo
-description: Fluid demo
+name: fluid_kit_demo
+description: FluidKit demo
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluid_box:
+  fluid_kit:
     path: ../package
 
 dev_dependencies:

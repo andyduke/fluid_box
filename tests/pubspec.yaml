@@ -1,5 +1,5 @@
-name: fluid_box_tests
-description: FluidBox tests
+name: fluid_kit_tests
+description: FluidKit tests
 publish_to: none
 version: 1.0.0
 author:
@@ -14,7 +14,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluid_box:
+  fluid_kit:
     path: ../package
 
 dev_dependencies:

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:fluid_box/fluid_box.dart';
+import 'package:fluid_kit/fluid_kit.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 void main() {
@@ -196,17 +196,3 @@ void main() {
     await screenMatchesGolden(tester, 'three_widgets_1_2_1_wrap_next_line');
   });
 }
-
-/*
-class DisplaySize extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final RenderBox rb = context.findRenderObject() as RenderBox;
-    final Size size = rb?.size ?? Size.zero;
-
-    return Center(
-      child: Text('${size.width}x${size.height}'),
-    );
-  }
-}
-*/

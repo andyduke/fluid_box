@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'fluid.dart';
 
+/// A widget that controls how a child in `Fluid` shares space with its siblings.
 class Fluidable extends ParentDataWidget<FluidParentData> {
   Fluidable({
     Key key,
@@ -19,8 +20,12 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
           ),
         );
 
+  /// The fluid factor to use for this child.
+  ///
+  /// Cannot be null or less than 1.
   final int fluid;
 
+  /// The minimum width of the child.
   final double minWidth;
 
   @override
@@ -56,9 +61,14 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
   }
 }
 
+/// Parent data for use with [_RenderFluid].
 class FluidParentData extends ContainerBoxParentData<RenderBox> {
+  /// The fluid factor to use for this child.
+  ///
+  /// Cannot be null or less than 1.
   int fluid;
 
+  /// The minimum width of the child.
   double minWidth;
 
   @override
