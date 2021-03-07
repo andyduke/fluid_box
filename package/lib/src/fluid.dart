@@ -82,7 +82,8 @@ class _RenderFluid extends RenderBox
 
   @override
   void setupParentData(RenderBox child) {
-    if (child.parentData is! FluidParentData) child.parentData = FluidParentData();
+    if (child.parentData is! FluidParentData)
+      child.parentData = FluidParentData();
   }
 
   double _computeIntrinsicHeightForWidth(double width) {
@@ -183,8 +184,9 @@ class _RenderFluid extends RenderBox
       totalWidth += width;
     }
 
-    if (totalWidth > availableWidth) {
-      final double delta = (totalWidth - availableWidth) / (line.indexes.length - minWidthCount);
+    final int deltaCount = (line.indexes.length - minWidthCount);
+    if ((deltaCount > 0) && (totalWidth > availableWidth)) {
+      final double delta = (totalWidth - availableWidth) / deltaCount;
       for (var lineIndex in line.indexes) {
         if (fluidWidths[lineIndex] > widths[lineIndex]) {
           fluidWidths[lineIndex] -= delta;
@@ -211,7 +213,8 @@ class _RenderFluid extends RenderBox
       final double minWidth = child.getMinIntrinsicWidth(constraints.maxHeight);
       final double height = constraints.maxHeight;
 
-      final FluidParentData childParentData = child.parentData as FluidParentData;
+      final FluidParentData childParentData =
+          child.parentData as FluidParentData;
 
       children.add(child);
       parentData.add(childParentData);

@@ -31,7 +31,8 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
   @override
   void applyParentData(RenderObject renderObject) {
     assert(renderObject.parentData is FluidParentData);
-    final FluidParentData parentData = renderObject.parentData as FluidParentData;
+    final FluidParentData parentData =
+        renderObject.parentData as FluidParentData;
     bool needsLayout = false;
 
     if (parentData.fluid != fluid) {
