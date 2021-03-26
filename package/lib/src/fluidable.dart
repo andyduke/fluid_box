@@ -6,12 +6,11 @@ import 'fluid.dart';
 /// A widget that controls how a child in `Fluid` shares space with its siblings.
 class Fluidable extends ParentDataWidget<FluidParentData> {
   Fluidable({
-    Key key,
+    Key? key,
     this.fluid = 1,
     this.minWidth,
-    @required Widget child,
-  })  : assert(fluid != null),
-        assert(fluid > 0),
+    required Widget child,
+  })   : assert(fluid > 0),
         super(
           key: key,
           child: ConstrainedBox(
@@ -26,7 +25,7 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
   final int fluid;
 
   /// The minimum width of the child.
-  final double minWidth;
+  final double? minWidth;
 
   @override
   void applyParentData(RenderObject renderObject) {
@@ -46,7 +45,7 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
     }
 
     if (needsLayout) {
-      final AbstractNode targetParent = renderObject.parent;
+      final AbstractNode? targetParent = renderObject.parent;
       if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
   }
@@ -67,10 +66,10 @@ class FluidParentData extends ContainerBoxParentData<RenderBox> {
   /// The fluid factor to use for this child.
   ///
   /// Cannot be null or less than 1.
-  int fluid;
+  int? fluid;
 
   /// The minimum width of the child.
-  double minWidth;
+  double? minWidth;
 
   @override
   String toString() => '${super.toString()}; fluid=$fluid; minWidth=$minWidth';

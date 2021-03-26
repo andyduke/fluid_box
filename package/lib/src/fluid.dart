@@ -16,14 +16,11 @@ class Fluid extends MultiChildRenderObjectWidget {
   /// and it will leave `lineSpacing` vertical space between each line.
   ///
   Fluid({
-    Key /*?*/ key,
+    Key? key,
     this.spacing = 0.0,
     this.lineSpacing = 0.0,
     List<Fluidable> children = const <Fluidable>[],
-  })  : assert(children != null),
-        assert(spacing != null),
-        assert(lineSpacing != null),
-        super(key: key, children: children);
+  }) : super(key: key, children: children);
 
   /// Defaults to 0.0.
   final double spacing;
@@ -52,7 +49,7 @@ class _RenderFluid extends RenderBox
         ContainerRenderObjectMixin<RenderBox, FluidParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, FluidParentData> {
   _RenderFluid({
-    List<RenderBox> /*?*/ children,
+    List<RenderBox>? children,
     double spacing = 0.0,
     double lineSpacing = 0.0,
   })  : _spacing = spacing,
@@ -92,7 +89,7 @@ class _RenderFluid extends RenderBox
     double runWidth = 0.0;
     double runHeight = 0.0;
     int childCount = 0;
-    RenderBox /*?*/ child = firstChild;
+    RenderBox? child = firstChild;
     while (child != null) {
       final double childWidth = child.getMaxIntrinsicWidth(double.infinity);
       final double childHeight = child.getMaxIntrinsicHeight(childWidth);
@@ -117,7 +114,7 @@ class _RenderFluid extends RenderBox
   @override
   double computeMinIntrinsicWidth(double height) {
     double width = 0.0;
-    RenderBox /*?*/ child = firstChild;
+    RenderBox? child = firstChild;
     while (child != null) {
       width = max(width, child.getMinIntrinsicWidth(double.infinity));
       child = childAfter(child);
@@ -128,7 +125,7 @@ class _RenderFluid extends RenderBox
   @override
   double computeMaxIntrinsicWidth(double height) {
     double width = 0.0;
-    RenderBox /*?*/ child = firstChild;
+    RenderBox? child = firstChild;
     while (child != null) {
       width += child.getMaxIntrinsicWidth(double.infinity);
       child = childAfter(child);
@@ -147,21 +144,23 @@ class _RenderFluid extends RenderBox
   }
 
   @override
-  double /*?*/ computeDistanceToActualBaseline(TextBaseline baseline) {
+  double? computeDistanceToActualBaseline(TextBaseline baseline) {
     return defaultComputeDistanceToHighestActualBaseline(baseline);
   }
 
   List<double> _fluidWidths({
-    @required _RunLine line,
-    @required double availableWidth,
-    @required List<FluidParentData> parentData,
-    @required List<double> widths,
+    required _RunLine line,
+    required double availableWidth,
+    required List<FluidParentData> parentData,
+    required List<double> widths,
   }) {
     final List<double> fluidWidths = List.from(widths, growable: false);
 
-    double totalFluid = 0;
+    int totalFluid = 0;
     for (var lineIndex in line.indexes) {
-      totalFluid += parentData[lineIndex].fluid;
+      if (parentData[lineIndex].fluid != null) {
+        totalFluid += parentData[lineIndex].fluid!;
+      }
     }
     final double spacePerFluid = max(0.0, availableWidth / totalFluid);
 
@@ -169,7 +168,9 @@ class _RenderFluid extends RenderBox
     double totalWidth = 0;
     double restWidth = availableWidth;
     for (var lineIndex in line.indexes) {
-      final int fluid = parentData[lineIndex].fluid.clamp(1, totalFluid);
+      final int fluid = (parentData[lineIndex].fluid != null)
+          ? parentData[lineIndex].fluid!.clamp(1, totalFluid)
+          : 1;
       final double minWidth = widths[lineIndex];
 
       double width = (fluid * spacePerFluid);
@@ -208,7 +209,7 @@ class _RenderFluid extends RenderBox
     final List<_RunLine> lines = [];
 
     // Collect child data and minWidth
-    RenderBox /*?*/ child = firstChild;
+    RenderBox? child = firstChild;
     while (child != null) {
       final double minWidth = child.getMinIntrinsicWidth(constraints.maxHeight);
       final double height = constraints.maxHeight;
@@ -221,7 +222,7 @@ class _RenderFluid extends RenderBox
       widths.add(minWidth);
       heights.add(height);
 
-      child = childParentData.nextSibling /*?*/;
+      child = childParentData.nextSibling;
     }
 
     // Now calculate which widgets go in which lines
@@ -303,7 +304,7 @@ class _RenderFluid extends RenderBox
   }
 
   @override
-  bool hitTestChildren(BoxHitTestResult result, {@required Offset position}) {
+  bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     return defaultHitTestChildren(result, position: position);
   }
 
