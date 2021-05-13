@@ -233,10 +233,12 @@ class _RenderFluid extends RenderBox
     for (int index = 0; index < children.length; index++) {
       double width = widths[index];
 
-      if (x > 0 && (x + width + spacing) > availableWidth) {
+      // Next line
+      if (x > 0 && (x + width) > availableWidth) {
         widths = _fluidWidths(
           line: line,
-          availableWidth: availableWidth,
+          availableWidth:
+              availableWidth - ((line.indexes.length - 1) * spacing),
           parentData: parentData,
           widths: widths,
         );
@@ -253,7 +255,7 @@ class _RenderFluid extends RenderBox
     // Calculating widths for the last line
     widths = _fluidWidths(
       line: line,
-      availableWidth: availableWidth,
+      availableWidth: availableWidth - ((line.indexes.length - 1) * spacing),
       parentData: parentData,
       widths: widths,
     );
