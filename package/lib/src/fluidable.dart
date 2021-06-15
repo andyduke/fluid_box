@@ -10,7 +10,7 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
     this.fluid = 1,
     this.minWidth,
     required Widget child,
-  })   : assert(fluid > 0),
+  })  : assert(fluid > 0),
         super(
           key: key,
           child: ConstrainedBox(
