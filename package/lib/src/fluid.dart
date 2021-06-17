@@ -232,15 +232,22 @@ class _RenderFluid extends RenderBox
 
     // Calculate child width & height
     for (var item in children) {
-      item.child.layout(
-        BoxConstraints(
-          maxWidth: max(minAvailableWidth, item.minWidth),
-          maxHeight: constraints.maxHeight,
-        ),
-        parentUsesSize: true,
-      );
-      final double minWidth = item.child.size.width;
-      final double height = item.child.size.height;
+      double minWidth = item.child.getMinIntrinsicWidth(constraints.maxHeight);
+      double maxWidth = item.child.getMaxIntrinsicWidth(constraints.maxHeight);
+      double height = constraints.maxHeight;
+
+      // If not a fixed size (TextField, etc.)
+      if (minWidth != maxWidth) {
+        item.child.layout(
+          BoxConstraints(
+            maxWidth: max(minAvailableWidth, item.minWidth),
+            maxHeight: constraints.maxHeight,
+          ),
+          parentUsesSize: true,
+        );
+        minWidth = item.child.size.width;
+        height = item.child.size.height;
+      }
 
       widths.add(minWidth);
       heights.add(height);

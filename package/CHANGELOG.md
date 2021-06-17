@@ -1,3 +1,7 @@
+## 2.0.3
+
+* Improved algorithm for determining the allowed width of the child widget.
+
 ## 2.0.2
 
 * The algorithm for determining the minimum width of child widgets has been changed, for example, for widgets such as `TextField` and other widgets that try to fill all the available space. Now such widgets do not expand beyond the specified in `fluid` proportions in the line.
