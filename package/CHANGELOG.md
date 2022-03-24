@@ -1,3 +1,7 @@
+## 2.1.0
+
+* Added support for `TextDirection` and `Directionality`.
+
 ## 2.0.3
 
 * Improved algorithm for determining the allowed width of the child widget.

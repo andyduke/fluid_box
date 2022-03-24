@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'fluidable.dart';
@@ -19,6 +17,7 @@ class Fluid extends MultiChildRenderObjectWidget {
     Key? key,
     this.spacing = 0.0,
     this.lineSpacing = 0.0,
+    this.textDirection,
     List<Fluidable> children = const <Fluidable>[],
   }) : super(key: key, children: children);
 
@@ -28,11 +27,32 @@ class Fluid extends MultiChildRenderObjectWidget {
   /// Defaults to 0.0.
   final double lineSpacing;
 
+  /// Determines the order to lay children out horizontally.
+  ///
+  /// Defaults to the ambient [Directionality].
+  ///
+  /// If [textDirection] is [TextDirection.rtl], then the direction in which
+  /// text flows starts from right to left. Otherwise, if [textDirection] is
+  /// [TextDirection.ltr], then the direction in which text flows starts from
+  /// left to right.
+  final TextDirection? textDirection;
+
+  /// The value to pass to [_RenderFluid.textDirection].
+  ///
+  /// This value is derived from the [textDirection] property and the ambient
+  /// [Directionality]. The value is null if there is no need to specify the
+  /// text direction.
+  @protected
+  TextDirection? _getEffectiveTextDirection(BuildContext context) {
+    return textDirection ?? Directionality.maybeOf(context);
+  }
+
   @override
   _RenderFluid createRenderObject(BuildContext context) {
     return _RenderFluid(
       spacing: spacing,
       lineSpacing: lineSpacing,
+      textDirection: _getEffectiveTextDirection(context),
     );
   }
 
@@ -40,7 +60,8 @@ class Fluid extends MultiChildRenderObjectWidget {
   void updateRenderObject(BuildContext context, _RenderFluid renderObject) {
     renderObject
       ..spacing = spacing
-      ..lineSpacing = lineSpacing;
+      ..lineSpacing = lineSpacing
+      ..textDirection = _getEffectiveTextDirection(context);
   }
 }
 
@@ -52,8 +73,10 @@ class _RenderFluid extends RenderBox
     List<RenderBox>? children,
     double spacing = 0.0,
     double lineSpacing = 0.0,
+    TextDirection? textDirection,
   })  : _spacing = spacing,
-        _lineSpacing = lineSpacing {
+        _lineSpacing = lineSpacing,
+        _textDirection = textDirection {
     addAll(children);
   }
 
@@ -75,6 +98,16 @@ class _RenderFluid extends RenderBox
     if (_lineSpacing == value) return;
     _lineSpacing = value;
     markNeedsLayout();
+  }
+
+  /// Determines the order to lay children out horizontally.
+  TextDirection? get textDirection => _textDirection;
+  TextDirection? _textDirection;
+  set textDirection(TextDirection? value) {
+    if (_textDirection != value) {
+      _textDirection = value;
+      markNeedsLayout();
+    }
   }
 
   @override
@@ -321,12 +354,18 @@ class _RenderFluid extends RenderBox
 
     // Positioning children
     for (_RunLine line in lines) {
-      double x = 0;
+      double x = (_textDirection == TextDirection.ltr) ? 0 : availableWidth;
 
       for (int index in line.indexes) {
         var childParentData = children[index].parentData;
-        childParentData.offset = Offset(x, line.top);
-        x += widths[index] + spacing;
+        if (_textDirection == TextDirection.ltr) {
+          childParentData.offset = Offset(x, line.top);
+          x += widths[index] + spacing;
+        } else {
+          x -= widths[index];
+          childParentData.offset = Offset(x, line.top);
+          x -= spacing;
+        }
       }
     }
 
