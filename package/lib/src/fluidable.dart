@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+
 import 'fluid.dart';
 
 /// A widget that controls how a child in `Fluid` shares space with its siblings.
@@ -45,7 +45,7 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
     }
 
     if (needsLayout) {
-      final AbstractNode? targetParent = renderObject.parent;
+      final targetParent = renderObject.parent;
       if (targetParent is RenderObject) targetParent.markNeedsLayout();
     }
   }
