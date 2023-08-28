@@ -1,3 +1,7 @@
+## 3.0.0
+
+* Update Flutter dependencies, set Flutter >=3.3.0 and Dart to >=2.18.0 <4.0.0
+
 ## 2.1.0
 
 * Added support for `TextDirection` and `Directionality`.

@@ -4,16 +4,16 @@ class DisplaySize extends StatelessWidget {
   final Size fallbackSize;
 
   DisplaySize({
-    Key key,
+    Key? key,
     this.fallbackSize = const Size(1, 150),
   }) : super(key: key);
 
-  final ValueNotifier<Size> size = ValueNotifier(null);
+  final ValueNotifier<Size?> size = ValueNotifier(null);
 
   void _getSize(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox rb = context.findRenderObject() as RenderBox;
-      size.value = rb?.size ?? Size.zero;
+      size.value = rb.size;
     });
   }
 
@@ -39,7 +39,7 @@ class DisplaySize extends StatelessWidget {
               Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 padding: const EdgeInsets.all(8.0),
-                child: ValueListenableBuilder(
+                child: ValueListenableBuilder<Size?>(
                     valueListenable: size,
                     builder: (context, size, child) => Text(
                         (size != null) ? '${size.width.toStringAsFixed(1)}x${size.height.toStringAsFixed(1)}' : '')),

@@ -1,14 +1,14 @@
 name: fluid_kit
 description: Responsive helper for fluid layout. Allows you to control the layout of children based on minimum width and grid.
-version: 2.1.0
+version: 3.0.0
 author: Andy Chentsov <chentsov@gmail.com>
 homepage: https://github.com/andyduke/fluid_box/tree/master/package
 repository: https://github.com/andyduke/fluid_box
 issue_tracker: https://github.com/andyduke/fluid_box/issues
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'fluid.dart';
@@ -45,8 +44,8 @@ class Fluidable extends ParentDataWidget<FluidParentData> {
     }
 
     if (needsLayout) {
-      final AbstractNode? targetParent = renderObject.parent;
-      if (targetParent is RenderObject) targetParent.markNeedsLayout();
+      final RenderObject? targetParent = renderObject.parent;
+      targetParent?.markNeedsLayout();
     }
   }
 
